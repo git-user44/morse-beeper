@@ -7,28 +7,28 @@
   Designed to work with a passive buzzer strapped across (GPIO 10) header pins 19 & 20 but that can be changed
   using program switches
   
-  =====
-  [3v3]   1 2   [5V]
-  [GPIO 2 (SDA)]   3 4   [5V]
-  [GPIO 3 (SCL)]   5 6   [Gnd]
-  [GPIO 4 GPCLK0)]   7 8   [GPIO 14 (UART TX)]
-  [Gnd]   9 10  [GPIO 15 (UART RX)]
-  [GPIO 17]  11 12  [GPIO 18 (PCM CLK)]
-  [GPIO 27]  13 14  [Gnd]
-  [GPIO 22]  15 16  [GPIO 23]
-  [3v3]  17 18  [GPIO 24]
+                                =====
+                         [3v3]   1 2   [5V]
+                [GPIO 2 (SDA)]   3 4   [5V]
+                [GPIO 3 (SCL)]   5 6   [Gnd]
+              [GPIO 4 GPCLK0)]   7 8   [GPIO 14 (UART TX)]
+                         [Gnd]   9 10  [GPIO 15 (UART RX)]
+                     [GPIO 17]  11 12  [GPIO 18 (PCM CLK)]
+                     [GPIO 27]  13 14  [Gnd]
+                     [GPIO 22]  15 16  [GPIO 23]
+                         [3v3]  17 18  [GPIO 24]
   Buzzer [GPIO 10 (SPI0 MOSI)]  19 20  [Gnd] Buzzer
-  =====
-  [GPIO 9 (SPI0 MISO)]  21 22  [GPIO 25]
-  [GPIO 11 (SPI0 SCLK)]  23 24  [GPIO 8 (SPI0 CE0)]
-  [Gnd]  25 26  [GPIO 7 (SPI0 CE1)]
-  [GPIO 0 (EEPROM SDA)]  27 28  [GPIO 1 (EEPROM SCL)]
-  [GPIO 5]  29 30  [Gnd]
-  [GPIO 6]  31 32  [GPIO 12 (PWM)]
-  [GPIO 13 (PWM1)]  33 34  [Gnd]
-  [GPIO 19 (PCM FS)]  35 36  [GPIO 16]
-  [GPIO 26]  37 38  [GPIO 20 (PCM DIN)]
-  [Gnd]  39 40  [GPIO 21 (PCM DOUT)]
+                                =====
+          [GPIO 9 (SPI0 MISO)]  21 22  [GPIO 25]
+         [GPIO 11 (SPI0 SCLK)]  23 24  [GPIO 8 (SPI0 CE0)]
+                         [Gnd]  25 26  [GPIO 7 (SPI0 CE1)]
+         [GPIO 0 (EEPROM SDA)]  27 28  [GPIO 1 (EEPROM SCL)]
+                      [GPIO 5]  29 30  [Gnd]
+                      [GPIO 6]  31 32  [GPIO 12 (PWM)]
+              [GPIO 13 (PWM1)]  33 34  [Gnd]
+            [GPIO 19 (PCM FS)]  35 36  [GPIO 16]
+                     [GPIO 26]  37 38  [GPIO 20 (PCM DIN)]
+                         [Gnd]  39 40  [GPIO 21 (PCM DOUT)]
 
 */
 #include <stdio.h>
