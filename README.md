@@ -10,9 +10,7 @@ The program was developed to run on a headless mobile robot, to enable various s
 
 The program takes text from standard input and beeps it out, e.g.
 
-`
-# echo -n "low battery" | morse
-`
+`# echo -n "low battery" | morse`
 
 If you want spoken word messages, you may want to ask Google about "festival speech".
 
