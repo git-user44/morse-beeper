@@ -43,7 +43,7 @@
 
 #define GPIO 10
 #define HZ  800
-#define WPM 18
+#define WPM 20
 
 #define FALSE 0
 #define TRUE 1;
@@ -200,8 +200,11 @@ int main(int argc, char *argv[])
    
   chip=gpiod_chip_open_by_label("pinctrl-bcm2835");
   if (chip==NULL) {
-    perror("Opening GPIO chip 'pinctrl-bcm2835'");
-    exit(errno);
+    chip=gpiod_chip_open_by_label("pinctrl-bcm2711");
+    if (chip==NULL) {
+      perror("Opening GPIO chip 'pinctrl-bcm2835' (also tried 'pinctrl-bcm2711')");
+      exit(errno);
+    }
   }
 
   line = gpiod_chip_get_line(chip, gpio);
