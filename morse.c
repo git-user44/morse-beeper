@@ -49,6 +49,7 @@
 #define TRUE 1;
 
 static int verbose=FALSE;
+static int passive=FALSE;
 
 static int gpio = GPIO;
 static int freq  = HZ;
@@ -129,6 +130,7 @@ void usage(char *argv[]) {
           "Usage: %s [OPTION] ...\n"   \
           "   -g value, gpio, 0-31       (%d)\n"   \
           "   -h value, Frequency in Hz  (%d)\n"   \
+          "   -p, passive buzzer.\n"               \
           "   -v enable verbose mode\n"             \
           "   -w value, Words per minute (%d)\n"  \
           "EXAMPLE\n"                          \
@@ -140,7 +142,7 @@ void usage(char *argv[]) {
 static void initOpts(int argc, char *argv[]) {
   int i, opt;
 
-  while ((opt = getopt(argc, argv, "h:g:vw:")) != -1) {
+  while ((opt = getopt(argc, argv, "h:g:pvw:")) != -1) {
     i = -1;
 
     switch (opt) {
@@ -148,11 +150,16 @@ static void initOpts(int argc, char *argv[]) {
       i = atoi(optarg);
       if (i >= 1) freq = i;
       else fatal("invalid -h option (%d)", i);
+      if ( ! passive)
+        fatal("Only valid for passive buzzers.\n");
       break;
     case 'g':
       i = atoi(optarg);
       if ((i >= 1) && (i <= 31)) gpio = i;
       else fatal("invalid -g option (%d)", i);
+      break;
+    case 'p' :
+      passive=TRUE;
       break;
     case 'v' :
       verbose=TRUE;
@@ -179,12 +186,17 @@ void beep(struct gpiod_line *line, unsigned long length) {
   
   int bit=0;
   while (end_time > now_time) {
-    gpiod_line_set_value(line, bit&1);
-    bit++;
-    usleep(500000/freq);  // half a second divided by Hz gives the toggle rate
+    if (passive) {
+      gpiod_line_set_value(line, bit&1);
+      bit++;
+      usleep(500000/freq);  // half a second divided by Hz gives the toggle rate
+    } else {
+      gpiod_line_set_value(line, 1);
+    }
     clock_gettime(CLOCK_MONOTONIC_RAW, &now);
     now_time=(now.tv_sec - start.tv_sec) * 1000000 + (now.tv_nsec - start.tv_nsec) / 1000;  
-  } 
+  }
+  gpiod_line_set_value(line, 0);
 }
 
 
